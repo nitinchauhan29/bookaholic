@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Bookaholic
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/styles/content.css">
+        <style>
+            table{
+                 border-collapse: collapse;
+                 width: 100%;
+            }
+            td,th{
+                padding: 10px;
+                text-align: center;
+                font-size: 25px;
+            }
+            th{
+                background-color:black;
+                color: white;
+            }
+            
+        </style>
+    </head>
+    <body>
+
+        <img src="/static/img/symbol.jpg" alt="avatar" class="img-center">
+        <div class="l-l">
+        <div class="user">Logged in by: {{ username }}  </div>
+        <div class="user"><a href="{{ url_for('logout') }}">Logout</a></div>
+</div>
+        
+        
+        <table border="3px">
+            <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Action</th>
+            </tr>
+            {% for b in book %}
+            <tr>   
+                <td>{{ b.isbn }}</td>
+                <td> {{ b.title }} </td>
+                <td>{{ b.author }}</td>
+                <td>{{ b.year }}</td>
+                <td><a href="{{ url_for('book_detail',isbn = b.isbn) }}" >View</a></td>
+            </tr>
+            {% endfor %}
+                   
+        </table>
+        
+    </body>
+</html>

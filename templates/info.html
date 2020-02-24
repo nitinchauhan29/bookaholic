@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bookaholic</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <link rel="stylesheet" href="/static/styles/content.css">
+        
+        <style>
+            input[type=text],input[type=number]{
+                width: 70%;
+                font-size: 35px;
+                font-weight: bold;
+            }
+            button{
+               margin-top: 10px;
+               border: solid black;
+               height: 40px;
+               width: 30%;
+               background-color: black;
+               font-size: xx-large;
+               color: white;
+    }
+        </style>
+    </head>
+    <body>
+        <img src="/static/img/symbol.jpg" alt="avatar" class="img-center">
+        <div class="l-l">
+            <div class="user">Logged in by: {{ username }}  </div>
+            <div class="user"><a href="{{ url_for('logout') }}">Logout</a></div>
+    </div>
+           
+
+    
+        <h1 class="book-name">{{ book.title }} </h1>
+        <div class="book-detail">
+            <h1>ISBN NO :{{ book.isbn }}</h1>
+            <h1>Author :{{ book.author }} </h1>
+            <h1>Year :{{ book.year }} </h1>
+            <h1>Goodreads ratting :{{ review }} by {{ gr_user_no }} users</h1>
+            <h1>Local ratting : {{ internal_ratting }} by {{ count }} users</h1>
+            <h1><a href="#section1">Write a review</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href="#section2">Review by other people</a></h1>
+        </div>
+        <br>
+        <br>
+        <div class="arrangement">
+        <div id = "section1" >
+           
+            <form action="{{ url_for('book_detail',isbn=book.isbn )}}" method="POST">
+                Write a review:  <input type="text"   name="remark" placeholder="Minimum 3 charracter"><br>
+                Ratting : <br>  <input type="number"  name="points" placeholder="Between 1.00-5.00">
+               <br> <button style="background-color: black; color: white;">Submit</button>
+            </form>
+        </div>
+        <br>
+        <div id="section2">
+              <div>
+                <h1 style="font-weight: bold;font-size: 45px;"> Reviews by the people :-</h1><br>
+                {% for i in local_user %}
+                  
+                  <span style="font-size:40px;font-weight: bold;">User : {{i.username }} <br>{{ i.points }} star <br> Wrote : </span><span style="font-size:40px;">{{ i.remark }} </span>
+                  <br>
+                  <br>
+                  <br>
+                {% endfor %}
+              </div>
+        </div> 
+          
+    
+    </body>
+</html>
