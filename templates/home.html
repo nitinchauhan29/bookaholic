@@ -5,100 +5,39 @@
             Bookaholic
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/static/styles/content.css">
-        <style>
-            body{
-                background-image: url("static/img/background.jpg");
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
-                width: 80vh;
-                height:100vh;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                content: "";
-                z-index: 0;               
-            }
-            .i-c{
-                border-radius: 90%;
-                height: 200px;
-                text-align: center;
-                position: relative;
-                left: 600px;
-            }
-            .qoute1{
-                font-size: 20px;
-                position: absolute;
-                bottom: 80px;
-                left: 330px;
-                font-family: 'Kaushan Script';
-                font-weight: bold;
-                text-align: center;
-            }
-            .qoute2{
-                position: absolute;
-                bottom: 110px;
-                left: 550px;
-                font-family: 'Kaushan Script';
-                font-weight: bold;
-            }
-            .api{
-                position:absolute;
-                right: -20px;
-                top: -100px;
-                font-size: 50px;
-            }
-            input[type=text],input[type=password]{
-                width: 50%;
-                font-size: 30px;
-                font-weight: bold;
-            }
-            button{
-               margin-top: 10px;
-               border: solid black;
-               height: 40px;
-               width: 30%;
-               background-color: black;
-               font-size: xx-large;
-               color: white;
-    }       
-            .h{
-                font-size:30px ;
-                font-weight: bold;
-                
-
-            }
-
-        </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/styles/content.css"> 
     <body>
+        <div class="container">
+            <div class="row">
+                
+                <img src="/static/img/symbol.jpg" alt="avatar" class="img-center">
+                <div class="heading">Bookaholic</div>      
+                
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <form class="log-in" action="{{ url_for('login') }}" method="POST">
+                       <h1 style="font-size: 40px;">Log In</h1>
+                       <span >Username :</span>  <input  type="text" name="username" placeholder="Username"><br><br>
+                       <span >Password   &nbsp;: </span> <input  type="password" name="password" placeholder="Password">
+                       <br><br><button class="btn">Log in</button>
+                    </form>
+                </div>
 
-        <a class="api" href="{{ url_for('api_page') }}"> API </a>
-
-        <img src="/static/img/symbol.jpg" alt="symbol" align="middle" class="i-c">
-
-        
-        <div class="log-in">
-            <form action="{{ url_for('login') }}" method="POST">
-                <h1 style="font-size: 40px;">LOG IN !!!</h1>
-                <span class="h">Username :</span>  <input  type="text" name="username" placeholder="Username"><br> <br><br> 
-                <span class="h">Password   &nbsp;: </span> <input type="password" name="password" placeholder="Password">
-                <br><button>LOG IN</button>
-            </form>
-        </div>
-        <div class="register">
-            <form action="{{ url_for('register') }}" method="post">
-                <h1 style="font-size: 40px;">REGISTER</h1>
-                <span class="h">Username : </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     <input type="text" name="username" placeholder="username"><br><br>
-                <span class="h" >Password  : </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="password" placeholder="password"><br><br>
-                <span class="h">Confirm password :</span> <input type="text" name="repassword" placeholder="Password">
-                <br><button>REGISTER</button>
-            </form>
-        </div>
-
-    <div class="copyright">
-        &#169;<br>Nitin Chauhan
-    </div>
-        
+                <div class="col-lg-6 col-sm-12">
+                    <form class="log-in" action="{{ url_for('register') }}" method="post">
+                        <h1 style="font-size: 40px;">Register</h1>
+                        Username :  <input   type="text" name="username" placeholder="Username"><br><br>
+                        Password  :  <input  type="text" name="password" placeholder="Password"><br><br>
+                        Confirm password : <input  type="text" name="repassword" placeholder="Password">
+                        <br><br><button class="btn">Register</button>
+                    </form>
+                </div>
+                <div style="text-align: center; font-size: 30px;font-weight:bold;"><a href="{{ url_for('api_page') }}">API</a></div>            
+                <div style="text-align: center;font-weight: bold;">
+                    &#169;<br>Nitin Chauhan
+                </div> 
+            </div>
+        </div>    
     </body>
 </html>

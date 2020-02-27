@@ -3,56 +3,51 @@
     <head>
         <title>Bookaholic</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
         <link rel="stylesheet" href="/static/styles/content.css">
         
-        <style>
-            input[type=text],input[type=number]{
-                width: 70%;
-                font-size: 35px;
-                font-weight: bold;
-            }
-            button{
-               margin-top: 10px;
-               border: solid black;
-               height: 40px;
-               width: 30%;
-               background-color: black;
-               font-size: xx-large;
-               color: white;
-    }
-        </style>
     </head>
     <body>
-        <img src="/static/img/symbol.jpg" alt="avatar" class="img-center">
-        <div class="l-l">
-            <div class="user">Logged in by: {{ username }}  </div>
-            <div class="user"><a href="{{ url_for('logout') }}">Logout</a></div>
-    </div>
-           
-
+       
+        
+        <div class="user">Logged in by: {{ username }}  </div>
+        <div class="user"><a href="{{ url_for('logout') }}">Logout</a></div>
+    
+        <img src="/static/img/symbol.jpg" alt="avatar" class="img-center">       
+        <div class="heading">Bookaholic</div>     
+        <br>
+        <br>
     
         <h1 class="book-name">{{ book.title }} </h1>
-        <div class="book-detail">
+        <div class="book-detail"><br><br>
             <h1>ISBN NO :{{ book.isbn }}</h1>
             <h1>Author :{{ book.author }} </h1>
             <h1>Year :{{ book.year }} </h1>
             <h1>Goodreads ratting :{{ review }} by {{ gr_user_no }} users</h1>
             <h1>Local ratting : {{ internal_ratting }} by {{ count }} users</h1>
-            <h1><a href="#section1">Write a review</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href="#section2">Review by other people</a></h1>
+            <h1><a href="#section1">Write a review</a><br><a href="#section2">Review by other people</a></h1>
         </div>
         <br>
         <br>
-        <div class="arrangement">
+        <div class="container">
         <div id = "section1" >
-           
-            <form action="{{ url_for('book_detail',isbn=book.isbn )}}" method="POST">
-                Write a review:  <input type="text"   name="remark" placeholder="Minimum 3 charracter"><br>
-                Ratting : <br>  <input type="number"  name="points" placeholder="Between 1.00-5.00">
-               <br> <button style="background-color: black; color: white;">Submit</button>
+            <form action="{{ url_for('book_detail',isbn=book.isbn )}}" method="POST" class="form-group">
+                <h1>Write a review:</h1>
+                <textarea class="form-control" name="remark" rows="10" style="margin-bottom:20px; resize:none;" placeholder="Write your review here"></textarea>
+                  
+                <h1>Ratting : </h1>
+              
+                <div class="row">
+                    <div class="col-lg-6">
+                      <input type="number"  name="points" class="form-control" placeholder="Between 1.00 -5.00">
+                    </div>
+                <br>
+                <br> &nbsp;&nbsp;&nbsp;&nbsp; <button class="btn">Submit</button>    
             </form>
         </div>
-        <br>
+       
+<br>
         <div id="section2">
               <div>
                 <h1 style="font-weight: bold;font-size: 45px;"> Reviews by the people :-</h1><br>
@@ -66,6 +61,13 @@
               </div>
         </div> 
           
-    
+    </div>
+
+
+
+    <div style="text-align: center;font-weight: bold;">
+        &#169;<br>Nitin Chauhan
+    </div> 
+    <br><br>
     </body>
 </html>
