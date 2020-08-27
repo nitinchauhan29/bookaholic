@@ -44,12 +44,12 @@ def register():
         return render_template("ok.html" ,  message="Please enter all fields" )
     
     if(password == repassword):
-        db.execute("insert into users (username , password) values(:username , :password)", {"username":username , "password":password})
+        db.execute("insert into users (username , password) values(lower(:username) , :password)", {"username":username , "password":password})
         db.commit()
-        return render_template("ok.html", message="succesfully register , now please login " )
+        return render_template("ok.html", message="Succesfully register , now please login " )
     
     else:
-       return render_template("ok.html" , message="confirm password does not match with the given password ")
+       return render_template("ok.html" , message="Please enter same password in both place")
 
 
 
@@ -68,13 +68,13 @@ def login():
     #check wheather a user exist or not 
     user = db.execute("select * from users where username =lower(:username) and password =(:password) ",{"username":username , "password":password}).fetchone()
     if user is None:
-        return render_template ("ok.html" , message="please enter a valid username and password ")
+        return render_template ("ok.html" , message="Please enter a valid username and password ")
     
     #make user loged in
     session["login"] = True
     session["user"] = user.username.lower()
-    return render_template("find1.html" , username=username )
-    
+    return render_template("find1.html" , username=username.lower() )
+     
 
 # search for a particular book
 @app.route("/find" , methods=["GET"])
@@ -85,7 +85,7 @@ def find():
     choice = request.args.get("choice")
 
     if choice is None:
-        return render_template("ok.html" , message="please select the  criteria of searching")
+        return render_template("ok.html" , message="Please select the  criteria of searching")
      
     # apply % character to both end of the string which is entred by the user 
     search="%"
@@ -128,10 +128,10 @@ def book_detail(isbn):
         points = request.form.get("points")
 
         # check the charracter in the review is atleast 5 or not 
-        if len(remark)<5 :
-            return render_template("ok.html" , message="please provide review minimum five charracter")
+        if len(remark)<3 :
+            return render_template("ok.html" , message="Please provide review minimum five charracter")
         elif int(points)<1 or int(points) >5 :
-            return render_template("ok.html" , message="please provide ratting between 1.00 to 5.00")
+            return render_template("ok.html" , message="Please provide ratting between 1.00 to 5.00")
         
         # fetch information from database is user previously  submited a review for the given book
         check = db.execute("SELECT * FROM review WHERE username = (:username) AND isbn =(:isbn)",{"username":name ,"isbn":isbn}).fetchall()
@@ -167,6 +167,7 @@ def book_detail(isbn):
         for i in local_user:
             internal_ratting = internal_ratting + i.points
         internal_ratting /= count
+        internal_ratting =round(internal_ratting , 2)
     username = session["user"]
 
     return render_template("info.html",username=username , book=book ,review=review,gr_user_no=gr_user_no, internal_ratting=internal_ratting , count= count , local_user=local_user)
@@ -190,6 +191,8 @@ def api( isbn ):
         for i in local_user:
             internal_ratting = internal_ratting + i.points
         internal_ratting /= count
+        internal_ratting = round(internal_ratting , 2)
+        internal_ratting=str(internal_ratting)
 
     return jsonify({
         "title":book.title,
